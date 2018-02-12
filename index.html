@@ -2,19 +2,18 @@
 <html>
 <head>
   <title>DOCTEST</title>
-  <!--bootstrap cdn-->
+  <!-- bootstrap file -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!--my css file -->
+  <!--css -->
   <link rel = "stylesheet" href = "css/index.css">
-  <!--google fonts-->
+  <!--google fonts API-->
   <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-  <!--meta tags-->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
 <body>
-    <!-- As a heading -->
+ 
     <div class = "container-fluid">
       <div class = "row">
         <div id = "title" class = "col-12">
@@ -25,10 +24,12 @@
         <div class = "col-6">
           <br>
           <br>
+<hr>
           <p id = "content">
-            Many a times, the problems faced by schools are various teachers checking the exams. Sometimes partiality arises and sometimes it's a matter of mood. To eliminate all these possibilities, we did what all of the world is doing.<strong> AUTOMATE</strong>. Here, you can compare two documents and forget all the worries.
+        This application takes a base document as a "BASE" and compares it with the document we need to evaluate. <br> The parameters used here are the word count of the document. Using the word count of the base document , we determine the range of the word count of the evaluating document. Further , this document takes into account the nouns of the base document and compares it with the nouns of the evaluating document. It then gives out the similar nouns used.  
           </p>
-          <button id = "button" onclick="getData()" type="button" class="btn btn-outline-secondary">Click to compare</button>
+<hr>
+          <button id = "button" onclick="getData()" type="button" class="btn btn-outline-secondary">Click here to generate results</button>
         </div>
       </div>
 

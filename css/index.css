@@ -1,9 +1,9 @@
 #title{
-  color: white;
+  color: blue;
   font-family: 'Helvetica', sans-serif;
   letter-spacing: -2px;
   text-align: center;
-  background: grey;
+  background: white;
 }
 
 #content{
@@ -20,8 +20,8 @@
 }
 
 #table{
-  margin-top: 50px;
-  border: 2px solid black;
+  margin-top:60px;
+  border: 2px solid grey;
   width : 100%;
   text-align: center;
 }
