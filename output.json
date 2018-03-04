@@ -1,0 +1,11 @@
+{
+  "baseDocumentStats": {
+    "wordCount": 2586,
+    "nounCount": 395
+  },
+  "checkDocumentStats": {
+    "wordCount": 2586,
+    "nounCount": 395,
+    "matchingNounCount": 395
+  }
+}

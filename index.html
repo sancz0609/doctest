@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <title>DOCTEST</title>
+  <!-- bootstrap file -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!--css -->
+  <link rel = "stylesheet" href = "css/index.css">
+  <!--google fonts API-->
+  <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+
+    <div class = "container-fluid">
+      <div class = "row">
+        <div id = "title" class = "col-12">
+          <h1>DocTest</h1>
+        </div>
+
+      <div class = "row justify-content-center">
+        <div class = "col-6">
+          <br>
+          <br>
+<hr>
+          <p id = "content">
+        This application takes a base document as a "BASE" and compares it with the document we need to evaluate. <br> The parameters used here are the word count of the document. Using the word count of the base document , we determine the range of the word count of the evaluating document. Further , this document takes into account the nouns of the base document and compares it with the nouns of the evaluating document. It then gives out the similar nouns used.
+          </p>
+<hr>
+          <button id = "button" onclick="getData()" type="button" class="btn btn-outline-secondary">Click here to generate results</button>
+        </div>
+      </div>
+
+      </div>
+    </div>
+    <!--bootstrap javascripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src = 'index.js'>
+    </script>
+
+
+</body>
+</html>
