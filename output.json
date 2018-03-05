@@ -1,11 +1,19 @@
 {
-  "baseDocumentStats": {
+  "Standard": {
     "wordCount": 2586,
-    "nounCount": 395
+    "nouns": 535,
+    "adjectives": 98,
+    "verbs": 130
   },
-  "checkDocumentStats": {
+  "Eval": {
     "wordCount": 2586,
-    "nounCount": 395,
-    "matchingNounCount": 395
+    "nouns": 535,
+    "adjectives": 98,
+    "verbs": 130
+  },
+  "Common": {
+    "nouns": 535,
+    "adjectives": 98,
+    "verbs": 130
   }
 }
