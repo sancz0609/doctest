@@ -7,7 +7,7 @@ var natural = require('natural');
 
 //for tokenizing
 var tokenizer = new natural.WordTokenizer();
-var path = require("path");
+var path = require('path');
 
 var base_folder = path.join(path.dirname(require.resolve("natural")), "brill_pos_tagger");
 var rulesFilename = base_folder + "/data/English/tr_from_posjs.txt";

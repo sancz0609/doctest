@@ -39,3 +39,4 @@ function getData(){
     }
   }
 }
+npm install -D json-server

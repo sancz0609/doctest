@@ -22,5 +22,7 @@
     "textract": "^2.2.0",
     "wordpos": "^1.1.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "json-server": "^0.12.1"
+  }
 }
