@@ -57,7 +57,8 @@ if(checkLength < range_min || checkLength > range_max )
   return;
 }
 
-else{
+else
+{
   //call for evaluateing results
   evaluate(tokenBaseDocument, tokenCheckDocument, end);
 }
@@ -67,6 +68,9 @@ function evaluate(base, check, callback)
 {
   var baseTagged = tagger.tag(base);
   var checkTagged = tagger.tag(check);
+
+  baseTagged = countingPOS(baseTagged.length,baseTagged)
+  checkTagged = countingPOS(checkTagged.length,checkTagged)
 
   //for the counting of base document
   for(var i=0; i < baseTagged.length; i++)
@@ -82,6 +86,7 @@ function evaluate(base, check, callback)
       baseVerbs.push(baseTagged[i][0]);
   }
     //for the counting of evaluation document
+
   for(var i=0; i < checkTagged.length; i++){
     //if its a noun
     if(checkTagged[i][1] == "NN"|"NNS"|"NNP"|"NNPS")
@@ -98,6 +103,28 @@ function evaluate(base, check, callback)
    compareVerbs();
    end();
   }
+/*
+function countingPOS(lengthCheck,docTagged[][],noun[],adj[],verb[])
+{
+  for(var i=0; i < lengthCheck; i++)
+  {
+      if(docTagged[i][1] == "NN"|"NNS"|"NNP"|"NNPS")
+      {
+        baseNouns.push(docTagged[i][0]);
+      }
+      //if its an adjective
+      else if(docTagged[i][1] == "JJ"|"JJR"|"JJS")
+      {
+        baseAdjectives.push(docTagged[i][0]);
+      }
+      //if its a verb
+      else if(docTagged[i][1] == "VB"|"VBD"|"VBG"|"VBN"|"VBP")
+      {
+        baseVerbs.push(docTagged[i][0]);
+      }
+  }
+  return docTagged;
+}*/
 
 //comparing nouns of both documents and calculating noun percentage
 function compareNouns(){
