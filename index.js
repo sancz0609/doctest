@@ -1,14 +1,16 @@
-//extracting fs.
-//only working with text files
+//for working with file system
 const fs = require('fs');
+
+//provides utilities for working with file and directory paths
+var path = require('path');
 
 //for extracting natural
 var natural = require('natural');
 
 //for tokenizing
 var tokenizer = new natural.WordTokenizer();
-var path = require('path');
 
+//POS tagger based on Eric Brill's transformational algorithm
 var base_folder = path.join(path.dirname(require.resolve("natural")), "brill_pos_tagger");
 var rulesFilename = base_folder + "/data/English/tr_from_posjs.txt";
 var lexiconFilename = base_folder + "/data/English/lexicon_from_posjs.json";
@@ -24,83 +26,25 @@ var checkDocument;
 var baseLength;
 var checkLength;
 
-//for wordpos
-//var WordPOS = require('wordpos'),
-//wordpos = new WordPOS();
+var checkNouns = [];
+var baseNouns = [];
+var checkAdjectives = [];
+var baseAdjectives = [];
+var checkVerbs = [];
+var baseVerbs = [];
+var sameNouns = [];
+var sameAdjectives = [];
+var sameVerbs = [];
 
-/*
-// doc extracting is not working
-//extracting the base document
-textract.fromFileWithPath('base.docx', function( error, text ) {
-  if(error)
-  {
-    console.log("error");
-  }
-  else {
-    this.baseDocument = text;
-  }
-});
-
-//extracting the base document
-textract.fromFileWithPath('check.docx', function( error, text ) {
-  if(error)
-  {
-    console.log("error");
-  }
-  else {
-    checkDocument = text;
-  }
-});*/
-
-var evalNouns = [];
-var standardNouns = [];
-var evalAdjectives = [];
-var standardAdjectives = [];
-var evalVerbs = [];
-var standardVerbs = [];
-var similarNouns = [];
-var similarAdjectives = [];
-var similarVerbs = [];
-
-//console.log(this.baseDocument);
-//console.log(checkDocument);
 //extracting the text files sync
+baseDocument = fs.readFileSync('./docs/base.txt','utf-8');
+checkDocument = fs.readFileSync('./docs/check.txt','utf-8');
 
-var baseDocument = fs.readFileSync('./docs/base.txt','utf-8');
-var checkDocument = fs.readFileSync('./docs/check.txt','utf-8');
+//making tokens of base and check document
 var tokenBaseDocument = tokenizer.tokenize(baseDocument);
 var tokenCheckDocument = tokenizer.tokenize(checkDocument);
 
-/*
-//gibrish code for practiceing async -- ignore it
-setTimeout(function(){
-  //tokenizing the base document
-  var tokenizer = new natural.WordTokenizer();
-
-
-  setTimeout(function(){
-    this.baseLength = tokenBaseDocument.length;
-
-  },1000);
-
-
-}, 1000);
-
-setTimeout(function(){
-  //tokenizing the check document
-  var tokenizer = new natural.WordTokenizer();
-
-
-  setTimeout(function(){
-  this.checkLength = tokenCheckDocument.length;
-  },1000);
-
-
-}, 1000);
-
-console.log(baseLength);
-*/
-
+//finding length of base and check document
 baseLength = tokenBaseDocument.length;
 checkLength = tokenCheckDocument.length;
 
@@ -114,41 +58,41 @@ if(checkLength < range_min || checkLength > range_max )
 }
 
 else{
-  //call for calculating everything
-  calculate(tokenBaseDocument, tokenCheckDocument, end);
+  //call for evaluateing results
+  evaluate(tokenBaseDocument, tokenCheckDocument, end);
 }
 
 //counting nouns, adjectives and vers for both documents to compare
-function calculate(standard, evaluate, callback){
-  var standardTagged = tagger.tag(standard);
-  var evalTagged = tagger.tag(evaluate);
+function evaluate(base, check, callback)
+{
+  var baseTagged = tagger.tag(base);
+  var checkTagged = tagger.tag(check);
 
-  //for the counting of standard document
-  for(var i=0; i < standardTagged.length; i++){
+  //for the counting of base document
+  for(var i=0; i < baseTagged.length; i++)
+  {
     //if its a noun
-    if(standardTagged[i][1] == "NN"|"NNS"|"NNP"|"NNPS")
-      standardNouns.push(standardTagged[i][0]);
+    if(baseTagged[i][1] == "NN"|"NNS"|"NNP"|"NNPS")
+      baseNouns.push(baseTagged[i][0]);
     //if its an adjective
-    else if(standardTagged[i][1] == "JJ"|"JJR"|"JJS")
-      standardAdjectives.push(standardTagged[i][0]);
+    else if(baseTagged[i][1] == "JJ"|"JJR"|"JJS")
+      baseAdjectives.push(baseTagged[i][0]);
     //if its a verb
-    else if(standardTagged[i][1] == "VB"|"VBD"|"VBG"|"VBN"|"VBP")
-      standardVerbs.push(standardTagged[i][0]);
+    else if(baseTagged[i][1] == "VB"|"VBD"|"VBG"|"VBN"|"VBP")
+      baseVerbs.push(baseTagged[i][0]);
   }
     //for the counting of evaluation document
-  for(var i=0; i < evalTagged.length; i++){
+  for(var i=0; i < checkTagged.length; i++){
     //if its a noun
-    if(evalTagged[i][1] == "NN"|"NNS"|"NNP"|"NNPS")
-      evalNouns.push(evalTagged[i][0]);
+    if(checkTagged[i][1] == "NN"|"NNS"|"NNP"|"NNPS")
+      checkNouns.push(checkTagged[i][0]);
     //if its an adjective
-    else if(evalTagged[i][1] == "JJ"|"JJR"|"JJS")
-      evalAdjectives.push(evalTagged[i][0]);
+    else if(checkTagged[i][1] == "JJ"|"JJR"|"JJS")
+      checkAdjectives.push(checkTagged[i][0]);
     //if its a verb
-    else if(evalTagged[i][1] == "VB"|"VBD"|"VBG"|"VBN"|"VBP")
-      evalVerbs.push(evalTagged[i][0]);
-
+    else if(checkTagged[i][1] == "VB"|"VBD"|"VBG"|"VBN"|"VBP")
+      checkVerbs.push(checkTagged[i][0]);
   }
-
    compareNouns();
    compareAdjectives();
    compareVerbs();
@@ -157,35 +101,35 @@ function calculate(standard, evaluate, callback){
 
 //comparing nouns of both documents and calculating noun percentage
 function compareNouns(){
-  var corpus = standardNouns;
+  var corpus = baseNouns;
   var spellcheck = new natural.Spellcheck(corpus);
   //comparing each noun of evalDoc with corpus
-  for(let i = 0; i < evalNouns.length; i++){
-	if(spellcheck.isCorrect(evalNouns[i])){
-		similarNouns.push(evalNouns[i]);
+  for(let i = 0; i < checkNouns.length; i++){
+	if(spellcheck.isCorrect(checkNouns[i])){
+		sameNouns.push(checkNouns[i]);
 	}
 }
 
 }
 
 function compareAdjectives(){
-  var corpus = standardAdjectives;
+  var corpus = baseAdjectives;
   var spellcheck = new natural.Spellcheck(corpus);
   //comparing each noun of evalDoc with corpus
-  for(let i = 0; i < evalAdjectives.length; i++){
-	if(spellcheck.isCorrect(evalAdjectives[i])){
-		similarAdjectives.push(evalAdjectives[i]);
+  for(let i = 0; i < checkAdjectives.length; i++){
+	if(spellcheck.isCorrect(checkAdjectives[i])){
+		sameAdjectives.push(checkAdjectives[i]);
 	}
 }
 }
 
 function compareVerbs(){
-  var corpus = standardVerbs;
+  var corpus = baseVerbs;
   var spellcheck = new natural.Spellcheck(corpus);
   //comparing each noun of evalDoc with corpus
-  for(let i = 0; i < evalVerbs.length; i++){
-	if(spellcheck.isCorrect(evalVerbs[i])){
-		similarVerbs.push(evalVerbs[i]);
+  for(let i = 0; i < checkVerbs.length; i++){
+	if(spellcheck.isCorrect(checkVerbs[i])){
+		sameVerbs.push(checkVerbs[i]);
 	}
 }
 }
@@ -198,23 +142,23 @@ function compareVerbs(){
       Standard :
         {
           wordCount : baseLength,
-          nouns : standardNouns.length,
-          adjectives : standardAdjectives.length,
-          verbs : standardVerbs.length
+          nouns : baseNouns.length,
+          adjectives : baseAdjectives.length,
+          verbs : baseVerbs.length
         },
 
       Eval :
         {
           wordCount : checkLength,
-          nouns : evalNouns.length,
-          adjectives : evalAdjectives.length,
-          verbs : evalVerbs.length
+          nouns : checkNouns.length,
+          adjectives : checkAdjectives.length,
+          verbs : checkVerbs.length
         },
       Common :
       {
-          nouns : similarNouns.length,
-          adjectives : similarAdjectives.length,
-          verbs : similarVerbs.length
+          nouns : sameNouns.length,
+          adjectives : sameAdjectives.length,
+          verbs : sameVerbs.length
       }
 
     }
@@ -223,161 +167,3 @@ function compareVerbs(){
   //storing it in .json file
   fs.writeFileSync('output.json',json)
  }
-
-/*
-var baseNouns;
-var checkNouns;
-
-var commonNouns = [];
-
-wordpos.getNouns(checkDocument, function(result){
-  checkNouns = result;
-
-  wordpos.getNouns(baseDocument, function(result_a){
-    baseNouns = result_a;
-    calculatePercentage();
-  })
-
-});
-
-//calculating noun percentage
-function calculatePercentage(){
-  var corpus = baseNouns;
-  var spellcheck = new natural.Spellcheck(corpus);
-  //comparing each noun of evalDoc with corpus
-  for(let i = 0; i < checkNouns.length; i++){
-	if(spellcheck.isCorrect(checkNouns[i])){
-		commonNouns.push(checkNouns[i]);
-	}
-}
-    console.log(commonNouns)
-    end();
-}
-
-//json file -- to be executed in the end
- function end(){
-   var stats = {
-
-     baseDocumentStats :
-     {
-       wordCount : baseLength,
-       nounCount : baseNouns.length
-     },
-
-     checkDocumentStats :
-     {
-       wordCount : checkLength,
-       nounCount : checkNouns.length,
-       matchingNounCount : commonNouns.length
-     }
-
-   };
-      //object to string
-      var json = JSON.stringify(stats,null,2);
-      //fs.writeFileSync('output.json',json);
-
-      fs.writeFile('output.json',json,'utf-8',(err) => {
-        if(err) {
-          console.log("error");
-          return;
-        }
-        console.log("success");
-
-      });
-
- }
-
-
-
-/*
-let states = ['baseDocumentStats','checkDocumentStats'];
-
-let stats = {};   //initialising object with default value
-states.map(state => {
-  stats[state] = {
-    wordCount : baseLength,
-    MPL : 45454
-  }
-  //console.log(state);
-});
-
-india.haryana.cities.push({
-  name : "Gurgaon",
-  pinCode : 122001
-});
-
-india.punjab.cities = {};
-
-*/
-
-
-
-/*
-var document = fs.readFileSync('evaluate.txt','utf-8'); //don't require
-
-var keyWords = fs.readFileSync('key.txt','utf-8'); //don't require
-
-
-
-
-//for tokenizing
-
-
-var token_keyWords = tokenizer.tokenize(keyWords);
-
-//gives the number of words
-var length = token_document.length;
-console.log("Document contains "+length+"words.");
-
-
-if(length>=1000 && length<=4000)
-    console.log("Word Check Complete : It's valid")
-
-else {
-    console.log("Invalid number of words.");
-    //exit program here
-}
-
-var marks = 0;
-var correctWords = [];
-var spellcheck = new natural.Spellcheck(token_document);
-
-for(i in token_keyWords){
-    if(spellcheck.isCorrect(token_keyWords[i])){
-        marks++;
-        correctWords.push(token_keyWords[i]);
-    }
-}
-
-console.log("These are the concepts that you have covered : \n"+correctWords+"\n and you get these marks for that :"+marks);
-
-console.log("You get these many marks : "+marks);
-
-//dictionary and its tokenization
-var dictionary = fs.readFileSync('dictionary.txt','utf-8');
-var token_dictionary = tokenizer.tokenize(dictionary);
-console.log(token_dictionary);
-
-var spellcheck1 = new natural.Spellcheck(token_dictionary);
-var mistakes = 0;
-var incorrectWords = [];
-
-for(i in token_document){
-    if(!spellcheck1.isCorrect(token_document[i])){
-        mistakes++;
-        incorrectWords.push(token_document[i]);
-    }
-}
-
-console.log("These are the spelling mistakes you had : \n"+incorrectWords+"and you have these many mistakes \n: "+mistakes);
-*/
-/*
-var req = new XMLHttpRequest();
-req.onload = function(event){
-  alert("text file has opened");
-}
-req.open('get','./document.txt',true);
-req.send();
-*/
-
-// alert("hello world");
