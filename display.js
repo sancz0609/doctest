@@ -1,4 +1,5 @@
-function getData(){
+function getData()
+{
   var xmlHttp = new XMLHttpRequest();
   var url = "http://localhost:3000/db";
   xmlHttp.open("GET", url, true);
@@ -39,4 +40,3 @@ function getData(){
     }
   }
 }
-npm install -D json-server
