@@ -251,27 +251,7 @@ CSS can be applied in 3 ways :-
 	a{
 		Color : red;
 		Underline : none;
-   }
-</style> 
-
-       3) External CSS :-
-           Make an css file and give its link to the head of the html file so that html file can render it.
-
-Linking of CSS and HTML file
-In head section of html file, you need to add
-
-<link type = “text/css” rel = "stylesheet" href="style.css">
-Properties List
-CSS takes the shape of property name and property value.
-
-Some common examples are : 
-
-Color : red or #236589 or rgb(100,100,100) or [rgba()--?]; 
-Text-decoration : underline or none; 
-Font-family : (use html safe fonts) Helvetica, Arial, sans-serif; 
-Margin-/left/right/top/bottom/ : px or % or auto; 
-Padding-/left/right/top/bottom/ : px or % or auto; 
-Width : px or % 
+  
 Height : px or % : Don't use height generally, let the content decide height  
 Text-align : center or left or right 
 Example :- h1,a { } : means : apply property to h1 and a 
@@ -340,39 +320,5 @@ Here's how the structure looks like.
 
 
 
-Now, this is one of 12 column layouts that 960 grid framework provides.
 
-The package comes with a lot of css files, you can choose any of your liking for eg
-12 column grid, 16 column and 24 column.
-
-We also recommend to other files to be linked :
-1. 960.css : It defines the basic container and grid layout	
-2. reset.css : This css files reset all the margins, padding and positions with 	which it gets same for every browser be it firefox, safari, chrome . 	So that you don't have to worry about every browser.
-3. text.css : It is the built in typography which has decent fonts already applied. You can override those with your own css sheet.
-
-Never, change the css files of the framework. They are tried and tested. If you want to apply your own styles, override that particular element in your own stylesheet.
-Containers
-
-Now, it is up to you if you want 16 columns, 24 or 12.
-So, to apply a 12 column grid, this is how we do it
-
-For Example :-
-	In order to choose the container we use :-
-<div class class = "container_12">
-	This is how you apply 12 grid system.
-</div>
-Grids
-That's the beauty of frameworks, it makes everything so easy. Let's say you are making a huge header and you want it to take the whole width.
-All you have to do is :
-<div class = "container">
-	<div class = "grid_12">
-	<!-- insert header here-->
-	</div>
-</div>
-
-If you want 2 paragraphs taking half of page. Then use grid_6 for both of them in the same container. This way, they will take up exactly half of the page. Now, if you for instance give grid_6 to one and grid_ 7 to the other, then it will automatically move to the next line. This is a very nice way to create even pages.
-Notes
-960 Grid is basically a framework which eases our work. Some like o use it and some don’t. It basically eases the task to choose the grids and containers using predefined classes. All of this makes positioning a hell lot easier.
-
-That is all about HTML, CSS and 960 Grid. Hope you enjoyed it!
 

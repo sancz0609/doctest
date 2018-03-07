@@ -69,8 +69,8 @@ function evaluate(base, check, callback)
   var baseTagged = tagger.tag(base);
   var checkTagged = tagger.tag(check);
 
-  baseTagged = countingPOS(baseTagged.length,baseTagged)
-  checkTagged = countingPOS(checkTagged.length,checkTagged)
+  //baseTagged = countingPOS(baseTagged.length,baseTagged)
+  //checkTagged = countingPOS(checkTagged.length,checkTagged)
 
   //for the counting of base document
   for(var i=0; i < baseTagged.length; i++)
@@ -126,6 +126,8 @@ function countingPOS(lengthCheck,docTagged[][],noun[],adj[],verb[])
   return docTagged;
 }*/
 
+
+
 //comparing nouns of both documents and calculating noun percentage
 function compareNouns(){
   var corpus = baseNouns;
@@ -161,9 +163,7 @@ function compareVerbs(){
 }
 }
 
-
-
-//json file -- to be executed in the end
+//json file creation
  function end(){
     var score = {
       Standard :
@@ -193,4 +193,6 @@ function compareVerbs(){
   var json = JSON.stringify(score, null, 2);
   //storing it in .json file
   fs.writeFileSync('output.json',json)
+  // message
+  //error message
  }

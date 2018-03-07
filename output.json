@@ -6,14 +6,14 @@
     "verbs": 130
   },
   "Eval": {
-    "wordCount": 2586,
-    "nouns": 535,
-    "adjectives": 98,
-    "verbs": 130
+    "wordCount": 2104,
+    "nouns": 451,
+    "adjectives": 77,
+    "verbs": 104
   },
   "Common": {
-    "nouns": 535,
-    "adjectives": 98,
-    "verbs": 130
+    "nouns": 451,
+    "adjectives": 77,
+    "verbs": 104
   }
 }
